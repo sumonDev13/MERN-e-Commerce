@@ -48,3 +48,26 @@ export const createProduct = async (request, response) => {
         response.status(400).json({ message: error.message });
     }
 }
+
+
+export const updateProduct = async (request, response) => {
+    try {
+        const { title, description, price } = request.body;
+        const productId = request.params.id;
+
+        const updatedProduct = await Product.findByIdAndUpdate(
+            productId,
+            {
+                title,
+                description,
+                price
+                // Update other properties as needed
+            },
+            { new: true } // Return the updated product
+        );
+       
+        response.status(200).json(updatedProduct);
+    } catch (error) {
+        response.status(400).json({ message: error.message });
+    }
+};
