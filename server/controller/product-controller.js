@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import Product from '../model/product-schema.js';
+import { faker } from '@faker-js/faker';
 
 
 export const getProducts = async (request, response) => {
@@ -20,20 +21,24 @@ export const getProductById = async (request, response) => {
     }
 }
 
+
 export const createProduct = async (request, response) => {
     try {
-        const {id, title, description, price } = request.body;
+        const { title, description, price } = request.body;
+
+        
+        const id = new mongoose.Types.ObjectId().toHexString();
+
+        // Use faker for other fields
+        const fakeTitle = faker.commerce.productName();
+        const fakeDescription = faker.lorem.sentence();
+        const fakePrice = faker.commerce.price();
 
         const newProduct = new Product({
-            id: new mongoose.Types.ObjectId(),
-            title,
-            description,
-            price,
-            url,
-            detailsUrl,
-            quantity,
-            discount,
-            tagline
+            id,
+            title: title || fakeTitle,
+            description: description || fakeDescription,
+            price: price || parseFloat(fakePrice)
             // Add other properties as needed
         });
 
