@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import Product from '../model/product-schema.js';
 import { faker } from '@faker-js/faker';
+import { response } from 'express';
 
 
 export const getProducts = async (request, response) => {
@@ -71,3 +72,14 @@ export const updateProduct = async (request, response) => {
         response.status(400).json({ message: error.message });
     }
 };
+
+export const deleteProduct = async (request,response) =>{
+    try {
+        const productId = request.params.id;
+        const deletedProduct = await Product.findByIdAndDelete(productId);
+        response.status(200).json(deletedProduct);
+        
+    } catch (error) {
+        response.status(400).json({ message: error.message });
+    }
+}
