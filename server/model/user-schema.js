@@ -1,6 +1,11 @@
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
+    status:{
+        type:String,
+    },
+
+
     firstname: {
         type: String,
         required: true,

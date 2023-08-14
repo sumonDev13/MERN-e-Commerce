@@ -22,7 +22,7 @@ const USERNAME = process.env.DB_USERNAME;
 const PASSWORD = process.env.DB_PASSWORD;
 
 
-const port = 3000;
+const port = process.env.PORT || 5000;
 
 
 
