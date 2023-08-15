@@ -33,12 +33,14 @@ export const createProduct = async (request, response) => {
         const fakeTitle = faker.commerce.productName();
         const fakeDescription = faker.lorem.sentence();
         const fakePrice = faker.commerce.price();
+        const fakeImageUrl = faker.image.url();
 
         const newProduct = new Product({
-            // id:id,
+             id:id,
             title: title || fakeTitle,
             description: description || fakeDescription,
-            price: price || parseFloat(fakePrice)
+            price: price || parseFloat(fakePrice),
+            imageUrl: fakeImageUrl
             // Add other properties as needed
         });
 
