@@ -11,7 +11,8 @@ const productSchema = new mongoose.Schema({
     quantity: Number,
     description: String,
     discount: String,
-    tagline: String
+    tagline: String,
+    createdAt:Date
 });
 
 // autoIncrement.initialize(mongoose.connection);
