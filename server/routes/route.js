@@ -12,6 +12,6 @@ router.post('/login',userLogin);
 router.get('/products',getProducts);
 router.post('/createProduct',createProduct);
 router.put('/updateProduct/:id',updateProduct);
-router.delete('/deleteProduct:id',deleteProduct)
+router.delete('/deleteProduct/:id',deleteProduct)
 
 export default router;

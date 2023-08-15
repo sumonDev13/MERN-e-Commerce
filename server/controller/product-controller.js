@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import Product from '../model/product-schema.js';
 import { faker } from '@faker-js/faker';
-import { response } from 'express';
 
 
 export const getProducts = async (request, response) => {
@@ -36,7 +35,7 @@ export const createProduct = async (request, response) => {
         const fakePrice = faker.commerce.price();
 
         const newProduct = new Product({
-            id,
+            // id:id,
             title: title || fakeTitle,
             description: description || fakeDescription,
             price: price || parseFloat(fakePrice)
@@ -73,13 +72,19 @@ export const updateProduct = async (request, response) => {
     }
 };
 
-export const deleteProduct = async (request,response) =>{
+export const deleteProduct = async (request, response) => {
     try {
         const productId = request.params.id;
+
+        // Find the product and delete it
         const deletedProduct = await Product.findByIdAndDelete(productId);
-        response.status(200).json(deletedProduct);
-        
+
+        if (deletedProduct) {
+            response.status(200).json({ message: "Product deleted successfully" });
+        } else {
+            response.status(404).json({ message: "Product not found" });
+        }
     } catch (error) {
         response.status(400).json({ message: error.message });
     }
-}
+};

@@ -31,7 +31,7 @@ export const userLogin = async (request, response) => {
     const username = request.body.username;
     const password = request.body.password;
 
-    let user = await User.findOne({ username: username, password: password });
+    let user = await User.findOne({ username: username });
 
     if (user) {
         const passwordMatch = await bcrypt.compare(password, user.password);
