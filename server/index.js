@@ -4,7 +4,6 @@ import DefaultData from "./default.js";
 import dotenv from "dotenv"
 import Router from "./routes/route.js"
 import cors from "cors";
-import bodyParser from "body-parser";
 
 
 
@@ -14,7 +13,7 @@ dotenv.config();
 app.use(cors());
 app.use(express.json({extended:true}));
 app.use(express.urlencoded({extended:true}));
-app.use('/',Router);
+app.use('/api',Router);
 
 
 
