@@ -1,5 +1,6 @@
 import User from "../model/user-schema.js";
 import bcrypt from "bcrypt";
+import jwt from 'jsonwebtoken'
 
 export const userSignUp = async (request, response) => {
   try {
@@ -36,12 +37,14 @@ export const userLogin = async (request, response) => {
     if (user) {
         const passwordMatch = await bcrypt.compare(password, user.password);
         if (passwordMatch) {
-            return response.status(200).json(`${username} successfully logged in`);
+
+            const genToken = jwt.sign({ userID: user._id },process.env.JWT_SECRET, { expiresIn: "1h" });
+            return response.status(200).json({ token:genToken});
         } else {
-            return response.status(401).json('Invalid login credentials');
+            return response.status(401).json({message:"invalid login credentials"});
         }
     } else {
-        return response.status(401).json('Invalid login credentials');
+        return response.status(401).json({message:"server error"});
     }
 
     // if (user) {
@@ -51,6 +54,6 @@ export const userLogin = async (request, response) => {
     //   return response.status(401).json("Invalid login");
     // }
   } catch (error) {
-    return response.status(501).json("server error", error.message);
+    return response.status(500).json({"server error": error.message});
   }
 };
